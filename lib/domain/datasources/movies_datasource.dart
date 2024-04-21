@@ -1,9 +1,3 @@
-import 'package:p_peliculas_app/domain/entities/movie.dart';
+import 'package:p_peliculas_app/domain/Ideas/movie_Idea.dart';
 
-abstract class MovieDatasource {
-  Future<List<Movie>> getNowPlaying({int page = 1});
-  Future<List<Movie>> getPopular({int page = 1});
-  Future<List<Movie>> getUpcoming({int page = 1});
-  Future<List<Movie>> getTopRated({int page = 1});
-  Future<Movie> getMovieById(String id);
-}
+abstract class MovieDatasource extends MovieIdea {}
