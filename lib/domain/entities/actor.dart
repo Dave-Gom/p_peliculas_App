@@ -1,7 +1,7 @@
 class Actor {
   final int id;
-  final int name;
-  final int profilePath;
+  final String name;
+  final String profilePath;
   final String? character;
 
   Actor(
