@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:p_peliculas_app/domain/entities/movie.dart';
@@ -118,7 +119,9 @@ class _MovieDetails extends StatelessWidget {
             ],
           ),
         ),
-
+        _ActorByMovie(
+          movieId: movie.id,
+        ),
         //todo: mostrar actores
         const SizedBox(
           height: 100,
@@ -143,19 +146,19 @@ class _CustomSliverAppBar extends StatelessWidget {
       foregroundColor: Colors.white,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-        title: Text(
-          movie.title,
-          style: const TextStyle(
-            fontSize: 20,
-          ),
-          textAlign: TextAlign.start,
-        ),
         background: Stack(
           children: [
             SizedBox.expand(
               child: Image.network(
-                movie.backdropPath,
+                movie.posterPath,
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress != null) {
+                    return const SizedBox();
+                  }
+
+                  return FadeIn(child: child);
+                },
               ),
             ),
             const SizedBox.expand(
@@ -183,5 +186,63 @@ class _CustomSliverAppBar extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ActorByMovie extends ConsumerWidget {
+  final int movieId;
+  const _ActorByMovie({required this.movieId});
+
+  @override
+  Widget build(BuildContext context, ref) {
+    final actorsByMovie = ref.watch(actorsByMovieProvider);
+    final actors = actorsByMovie['$movieId'];
+    if (actors != null) {
+      return SizedBox(
+        height: 300,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: actors.length,
+          itemBuilder: (context, index) {
+            final actor = actors[index];
+            return Container(
+              padding: const EdgeInsets.all(8.0),
+              width: 150,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //actor photo
+                  FadeInRight(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        actor.profilePath,
+                        height: 180,
+                        width: 135,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 5),
+                  Text(actor.name),
+                  Text(
+                    actor.character ?? '',
+                    maxLines: 2,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  )
+                  //nombre
+                ],
+              ),
+            );
+          },
+        ),
+      );
+    } else {
+      return const CircularProgressIndicator(
+        strokeWidth: 2,
+      );
+    }
   }
 }
