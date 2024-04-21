@@ -1,8 +1,8 @@
 import 'package:p_peliculas_app/domain/datasources/movies_datasource.dart';
 import 'package:p_peliculas_app/domain/entities/movie.dart';
-import 'package:p_peliculas_app/domain/repositories/movies_repository.dart';
+import 'package:p_peliculas_app/domain/entity_actions/movie_entityActions.dart';
 
-class MovieRepositoryImpl extends MovieRepository {
+class MovieRepositoryImpl extends MovieEntityActions {
   final MovieDatasource datasource;
 
   MovieRepositoryImpl({required this.datasource});

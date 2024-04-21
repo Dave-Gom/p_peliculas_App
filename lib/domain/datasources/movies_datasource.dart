@@ -1,3 +1,3 @@
-import 'package:p_peliculas_app/domain/Ideas/movie_Idea.dart';
+import 'package:p_peliculas_app/domain/entity_actions/movie_entityActions.dart';
 
-abstract class MovieDatasource extends MovieIdea {}
+abstract class MovieDatasource extends MovieEntityActions {}
