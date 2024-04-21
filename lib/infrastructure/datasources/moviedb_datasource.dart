@@ -4,6 +4,7 @@ import 'package:p_peliculas_app/domain/datasources/movies_datasource.dart';
 import 'package:p_peliculas_app/domain/entities/movie.dart';
 import 'package:p_peliculas_app/infrastructure/mapprers/movie_mapper.dart';
 import 'package:p_peliculas_app/infrastructure/models/moviedb/movidb_response.dart';
+import 'package:p_peliculas_app/infrastructure/models/moviedb/movie_details.dart';
 
 class MovieDBDatasource extends MovieDatasource {
   final dio = Dio(BaseOptions(
@@ -54,5 +55,19 @@ class MovieDBDatasource extends MovieDatasource {
         await dio.get('/movie/upcoming', queryParameters: {'page': page});
 
     return _jsonToMovies(response.data);
+  }
+
+  @override
+  Future<Movie> getMovieById(String id) async {
+    final response = await dio.get('/movie/${id}');
+    if (response.statusCode != 200) {
+      throw Exception('Movie with id: $id not found');
+    }
+
+    final movieDetails = MovieDetails.fromJson(response.data);
+
+    final movie = MovieMapper.movieDetailsToEntity(movieDetails);
+
+    return movie;
   }
 }
