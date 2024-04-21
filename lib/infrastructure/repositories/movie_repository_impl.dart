@@ -1,6 +1,6 @@
 import 'package:p_peliculas_app/domain/datasources/movies_datasource.dart';
 import 'package:p_peliculas_app/domain/entities/movie.dart';
-import 'package:p_peliculas_app/domain/entity_actions/movie_entityActions.dart';
+import 'package:p_peliculas_app/domain/entity_actions/movie_entity_actions.dart';
 
 class MovieRepositoryImpl extends MovieEntityActions {
   final MovieDatasource datasource;
