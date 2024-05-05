@@ -9,11 +9,11 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
-      if (query.isNotEmpty)
-        FadeIn(
-          child: IconButton(
-              onPressed: () => query = '', icon: const Icon(Icons.clear)),
-        )
+      FadeIn(
+        animate: query.isNotEmpty,
+        child: IconButton(
+            onPressed: () => query = '', icon: const Icon(Icons.clear)),
+      )
     ];
   }
 
