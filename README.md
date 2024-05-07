@@ -19,3 +19,5 @@ samples, guidance on mobile development, and a full API reference.
 
 1. Copiar el .env.template y renombrarlo a .env
 2. cambiar las variables de entorno
+
+3. flutter pub run build_runner build
