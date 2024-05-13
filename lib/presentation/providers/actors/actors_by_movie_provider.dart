@@ -10,10 +10,10 @@ final actorsByMovieProvider =
   return ActorsByMovieNotifier(actorsRepository.getActorsByMovie);
 });
 
-typedef GetMovieCallback = Future<List<Actor>> Function(String);
+typedef GetMovieActorsCallback = Future<List<Actor>> Function(String);
 
 class ActorsByMovieNotifier extends StateNotifier<Map<String, List<Actor>>> {
-  final GetMovieCallback getActors;
+  final GetMovieActorsCallback getActors;
 
   ActorsByMovieNotifier(this.getActors) : super({});
 
